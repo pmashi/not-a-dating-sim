@@ -1,27 +1,23 @@
 package entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import objects.Item;
 
 public class Entity {
-	public enum ID { 
-		PLAYER, NPC, ALLY, ENEMY; 
-		
-		private ID() { 
-			
-		}
-		
-		public void setID(ID id) { 
-			
-		}
-	}
 	
 	private BufferedImage Sprite; 
 	private Item[] inventory = new Item[5];
 	private Item equpped; 
 	private int hp, block, mana;
-	private String direction; 
+	private int xPos, yPos; 
+	private int direction; 
 	
+	public void draw(Graphics g) { 
+		g.setColor(Color.BLACK);
+		g.drawRect(xPos, yPos, 32, 32);
+	}
 	
 }

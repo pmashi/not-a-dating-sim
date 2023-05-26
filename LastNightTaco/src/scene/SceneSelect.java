@@ -2,23 +2,18 @@ package scene;
 
 import java.awt.Graphics;
 
-import entity.Player;
 import game.Game;
-import game.GameState;
 
-public class Playing extends GameScene implements SceneMethods {
-	private Player player; 
-	private int scene; 
-	
-	public Playing(Game g) {
+public class SceneSelect extends GameScene implements SceneMethods {
+
+	public SceneSelect(Game g) {
 		super(g);
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void render(Graphics g) { 
-		player.draw(g); 
-	}
-	
-	public void update() { 
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -50,5 +45,6 @@ public class Playing extends GameScene implements SceneMethods {
 	public void mouseDragged(int x, int y) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
 }

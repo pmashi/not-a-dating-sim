@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Graphics;
+
 public class Render {
 	
 	Game game; 
@@ -7,20 +9,19 @@ public class Render {
 		game = g; 
 	}
 	
-	public void render() { 
+	public void render(Graphics g) { 
 		switch(GameState.STATE) { 
 		case MENU: 
-		
+			game.getMenu().render(g);
 			break; 
 		case PLAYING: 
-		
+			game.getPlay().render(g);
 			break; 
-		case LOADING: 
+		case SCENE_SELECT: 
 			
 			break; 
-		case SETTINGS: 
-			
-			break; 
+		case DEATH: 
+			game.getDeath().render(g);
 		default: 
 			break; 
 		}

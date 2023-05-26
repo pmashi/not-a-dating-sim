@@ -8,6 +8,7 @@ import objects.Item;
 
 public class Player extends Entity {
 	private MyKeyListener keyInput;
+	private boolean active; 
 
 	 
 	
@@ -18,5 +19,13 @@ public class Player extends Entity {
 	
 	public void draw(Graphics2D g) { 
 		
+	}
+	
+	public boolean getActive() { 
+		return active; 
+	}
+	
+	public void setActive(boolean b) { 
+		active = b; 
 	}
 }

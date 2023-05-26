@@ -1,25 +1,24 @@
 package scene;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
-import entity.Player;
 import game.Game;
-import game.GameState;
+import ui.Buttons;
 
-public class Playing extends GameScene implements SceneMethods {
-	private Player player; 
-	private int scene; 
+public class Death extends GameScene implements SceneMethods {
+
+	private Buttons retry; 
 	
-	public Playing(Game g) {
+	public Death(Game g) {
 		super(g);
+		// TODO Auto-generated constructor stub
 	}
-	
-	public void render(Graphics g) { 
-		player.draw(g); 
-	}
-	
-	public void update() { 
-		
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		g.setColor(Color.BLACK);
 	}
 
 	@Override
@@ -50,5 +49,6 @@ public class Playing extends GameScene implements SceneMethods {
 	public void mouseDragged(int x, int y) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
 }

@@ -13,6 +13,8 @@ package game;
 
 import javax.swing.JFrame;
 
+import scene.*;
+
 import java.util.ArrayList; 
 import java.util.Arrays;
 
@@ -28,6 +30,10 @@ public class Game extends JFrame implements Runnable {
 	
 	private GamePanel gamePanel; 
 	private Render render; 
+	private Menu menu; 
+	private Playing play; 
+	private Death death; 
+	private SceneSelect sceneSelect; 
 	
 	public Game() { 
 		initClasses();
@@ -38,19 +44,25 @@ public class Game extends JFrame implements Runnable {
 		
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//this.setUndecorated(true);
-		this.setVisible(true);
 		this.add(gamePanel);
 		this.pack();
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
 	}
 
 	public void initClasses() { 
 		gamePanel = new GamePanel(this); 
 		render = new Render(this);
+		menu = new Menu(this); 
+		play = new Playing(this);
+		death = new Death(this);
+		sceneSelect = new SceneSelect(this);
 	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Game game = new Game(); 
+		game.startThread(); 
 		
 	}
 	
@@ -87,7 +99,7 @@ public class Game extends JFrame implements Runnable {
 			}
 			if (System.currentTimeMillis() - lastTimeCheck >= 1000)
 			{
-				System.out.println("FPS: " + frames + " | UPS: " + updates);
+				//System.out.println("FPS: " + frames + " | UPS: " + updates);
 				frames = 0;
 				updates = 0;
 				lastTimeCheck = System.currentTimeMillis();
@@ -103,13 +115,47 @@ public class Game extends JFrame implements Runnable {
 		case MENU:
 			break;
 		case PLAYING:
-//			play.update();
+			play.update();
 			break;
 		default:
 			break;
 		}
 	}
 	
+	
+	public GamePanel getGamePanel() {
+		return gamePanel;
+	}
+
+	public Menu getMenu() {
+		return menu;
+	}
+
+	public Playing getPlay() {
+		return play;
+	}
+	
+	public Death getDeath() { 
+		return death; 
+	}
+	
+	public SceneSelect getSceneSelect() {
+		return sceneSelect; 
+	}
+	
+	public void setGamePanel(GamePanel gamePanel) {
+		this.gamePanel = gamePanel;
+	}
+
+	public void setMenu(Menu menu) {
+		this.menu = menu;
+	}
+
+
+	public void setPlay(Playing play) {
+		this.play = play;
+	}
+
 	
 	public Render getRender() { 
 		return render; 
