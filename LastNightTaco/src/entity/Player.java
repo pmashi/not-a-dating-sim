@@ -9,6 +9,7 @@ import objects.Item;
 public class Player extends Entity {
 	private MyKeyListener keyInput;
 	private boolean active; 
+	
 
 	 
 	

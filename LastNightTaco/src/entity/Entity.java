@@ -8,7 +8,7 @@ import objects.Item;
 
 public class Entity {
 	
-	private BufferedImage Sprite; 
+	private BufferedImage[][] sprite; 
 	private Item[] inventory = new Item[5];
 	private Item equpped; 
 	private int hp, block, mana;
