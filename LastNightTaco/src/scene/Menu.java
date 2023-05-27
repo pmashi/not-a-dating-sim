@@ -30,22 +30,21 @@ public class Menu extends GameScene implements SceneMethods {
 		exit = new Buttons("Exit", x, y + 2 * yOffset, width, height);
 	}
 
+	public void render(Graphics g) {
+		drawButtons(g); 
+	}
+	
 	public void drawButtons(Graphics g) { 
 		play.draw(g);
 		settings.draw(g);
 		exit.draw(g);
 	}
 	
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		drawButtons(g); 
-	}
 
 	public void update() { 
 		
 	}
-	@Override
+	
 	public void mouseClicked(int x, int y) {
 		// TODO Auto-generated method stub
 		if(play.getBounds().contains(x, y)) 

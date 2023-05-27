@@ -37,13 +37,11 @@ public class Game extends JFrame implements Runnable {
 	
 	public Game() { 
 		initClasses();
+		gamePanel.initInputs();
 		
+		this.setTitle("Not a Dating Sim");
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
-		
-		
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//this.setUndecorated(true);
 		this.add(gamePanel);
 		this.pack();
 		this.setLocationRelativeTo(null);
