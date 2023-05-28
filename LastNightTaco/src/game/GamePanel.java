@@ -35,10 +35,19 @@ public class GamePanel extends JPanel {
 	public void initInputs() { 
 		mouseListener = new MyMouseListener(game);
 		keyListener = new MyKeyListener(game);
+		
+		addMouseListener(mouseListener);
+		addMouseMotionListener(mouseListener); 
+		addKeyListener(keyListener); 
+		requestFocus(); 
 	}
 	
 	public void paintComponent(Graphics g) { 
 		super.paintComponent(g);
 		game.getRender().render(g); 
+	}
+	
+	public MyKeyListener getKeyListener() { 
+		return keyListener; 
 	}
 }

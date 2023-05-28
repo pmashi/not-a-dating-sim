@@ -13,6 +13,7 @@ package game;
 
 import javax.swing.JFrame;
 
+import entity.Player;
 import scene.*;
 
 import java.util.ArrayList; 
@@ -20,8 +21,8 @@ import java.util.Arrays;
 
 public class Game extends JFrame implements Runnable {
 
-	private static final int unit = 16; 
-	private static final int scale = 3; 
+	public static final int unit = 16; 
+	public static final int scale = 3; 
 	
 	private static int FPS = 120; 
 	private static int UPS = 60; 
@@ -30,10 +31,13 @@ public class Game extends JFrame implements Runnable {
 	
 	private GamePanel gamePanel; 
 	private Render render; 
+	
+	private Player player; 
+	
 	private Menu menu; 
+	private SceneSelect sceneSelect; 
 	private Playing play; 
 	private Death death; 
-	private SceneSelect sceneSelect; 
 	
 	public Game() { 
 		initClasses();
@@ -51,6 +55,9 @@ public class Game extends JFrame implements Runnable {
 	public void initClasses() { 
 		gamePanel = new GamePanel(this); 
 		render = new Render(this);
+		
+		player = new Player(this, gamePanel.getKeyListener());
+		
 		menu = new Menu(this); 
 		play = new Playing(this);
 		death = new Death(this);
@@ -108,8 +115,6 @@ public class Game extends JFrame implements Runnable {
 	public void updateGame() { 
 		switch (GameState.STATE)
 		{
-		case EDIT:
-			break;
 		case MENU:
 			break;
 		case PLAYING:
@@ -124,11 +129,22 @@ public class Game extends JFrame implements Runnable {
 	public GamePanel getGamePanel() {
 		return gamePanel;
 	}
-
+	
+	public Render getRender() { 
+		return render; 
+	}
+	
+	public Player getPlayer() {
+		return player; 
+	}
 	public Menu getMenu() {
 		return menu;
 	}
 
+	public SceneSelect getSceneSelect() {
+		return sceneSelect;
+	}
+	
 	public Playing getPlay() {
 		return play;
 	}
@@ -136,28 +152,7 @@ public class Game extends JFrame implements Runnable {
 	public Death getDeath() { 
 		return death; 
 	}
-	
-	public SceneSelect getSceneSelect() {
-		return sceneSelect; 
-	}
-	
-	public void setGamePanel(GamePanel gamePanel) {
-		this.gamePanel = gamePanel;
-	}
 
-	public void setMenu(Menu menu) {
-		this.menu = menu;
-	}
-
-
-	public void setPlay(Playing play) {
-		this.play = play;
-	}
-
-	
-	public Render getRender() { 
-		return render; 
-	}
 	
 	private static int collatzSteps(int n) { 
 		if(n == 1) return 0; 

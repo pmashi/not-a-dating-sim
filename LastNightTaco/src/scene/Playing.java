@@ -9,9 +9,11 @@ import game.GameState;
 public class Playing extends GameScene implements SceneMethods {
 	private Player player; 
 	private int scene; 
+	private GameScene[] gameScenes; 
 	
 	public Playing(Game g) {
 		super(g);
+		player = game.getPlayer();
 	}
 	
 	public void render(Graphics g) { 

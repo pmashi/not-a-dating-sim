@@ -18,7 +18,7 @@ public class Render {
 			game.getPlay().render(g);
 			break; 
 		case SCENE_SELECT: 
-			
+			game.getSceneSelect().render(g);
 			break; 
 		case DEATH: 
 			game.getDeath().render(g);

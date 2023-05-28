@@ -5,6 +5,7 @@ import game.GameState;
 
 public class GameScene {
 	protected Game game; 
+	
 	public GameScene(Game g) { 
 		game = g; 
 	}
