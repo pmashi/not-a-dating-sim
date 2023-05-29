@@ -39,6 +39,7 @@ public class GamePanel extends JPanel {
 		addMouseListener(mouseListener);
 		addMouseMotionListener(mouseListener); 
 		addKeyListener(keyListener); 
+		setFocusable(true); 
 		requestFocus(); 
 	}
 	

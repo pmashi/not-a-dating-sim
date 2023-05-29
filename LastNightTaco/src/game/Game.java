@@ -113,7 +113,7 @@ public class Game extends JFrame implements Runnable {
 	}
 	
 	public void updateGame() { 
-		switch (GameState.STATE)
+		switch (GameState.state)
 		{
 		case MENU:
 			break;
