@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import game.Game;
+import helpers.DataLoader;
 import objects.Item;
 
 public class Entity {
@@ -13,7 +14,7 @@ public class Entity {
 	protected Item equipped; 
 	protected Rectangle hitbox; 
 	protected int hp, block, mana;
-	protected int x, y, speed; 
+	protected int x, y, baseSpeed, speedBoost, speed; 
 	protected String direction; 
 	
 	public void draw(Graphics g) { 
@@ -21,13 +22,12 @@ public class Entity {
 		g.drawRect(x, y, 32, 32);
 	}
 
-	public void importSprites() { 
-		
+	
+	
+	public void importSprites(String fileName) { 
+		DataLoader.getImage(fileName);
 	}
 	
-	public void move(int speed, int angle) { 
-		
-	}
 	
 	
 	public BufferedImage[][] getSprite() {

@@ -36,19 +36,38 @@ public class Player extends Entity {
 		setDefault(); 
 	}
 	
+	private int tick = 0;
+	
 	public void update() { 
-		if(upPress) { 
-			super.y -= super.speed; 
+		checkForMultipleKeys();
+		if(active) {
+			if(upPress) { 
+				super.y -= speed; 
+			}
+			if(downPress) { 
+				super.y += speed;
+			}
+			if(leftPress) { 
+				super.x -= speed;
+			}
+			if(rightPress) { 
+				super.x += speed; 
+			}
 		}
-		if(downPress) { 
-			super.y += super.speed;
+		tick++;
+		if(tick % 120 == 0) {
+			System.out.println(speed);
 		}
-		if(leftPress) { 
-			super.x -= super.speed;
+	}
+	
+	public void checkForMultipleKeys() { 
+		int newSpeed = (int) Math.floor(super.baseSpeed * Math.sin(45));
+		if((upPress && (leftPress || rightPress)) || (downPress && (leftPress || rightPress))) { 
+			this.speed = newSpeed;
+		} else { 
+			speed = baseSpeed; 
 		}
-		if(rightPress) { 
-			super.x += super.speed; 
-		}
+
 	}
 	
 	public void draw(Graphics g) { 
@@ -56,10 +75,12 @@ public class Player extends Entity {
 	}
 	
 	public void setDefault() { 
+		active = true; 
 		super.hp = 100; 
 		super.x = 100; 
 		super.y = 100; 
-		super.speed = 4;
+		baseSpeed = 3;
+		super.speed = 3;
 		
 	}
 
