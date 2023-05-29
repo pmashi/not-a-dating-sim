@@ -16,13 +16,13 @@ import javax.swing.JFrame;
 import entity.Player;
 import scene.*;
 
+import java.awt.Color;
 import java.util.ArrayList; 
 import java.util.Arrays;
 
 public class Game extends JFrame implements Runnable {
 
-	public static final int unit = 16; 
-	public static final int scale = 3; 
+	public static final int unit = 48;
 	
 	private static int FPS = 120; 
 	private static int UPS = 60; 
@@ -49,7 +49,7 @@ public class Game extends JFrame implements Runnable {
 		this.add(gamePanel);
 		this.pack();
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);
+		this.setVisible(true);		
 	}
 
 	public void initClasses() { 

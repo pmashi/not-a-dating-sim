@@ -10,7 +10,9 @@ import helpers.DataLoader;
 import objects.Item;
 
 public class Entity {
-	private BufferedImage[][] sprite; 
+	protected BufferedImage[][] sprites; 
+	protected int spriteRow;
+	protected int spriteCol; 
 	protected Item equipped; 
 	protected Rectangle hitbox; 
 	protected int hp, block, mana;
@@ -18,20 +20,18 @@ public class Entity {
 	protected String direction; 
 	
 	public void draw(Graphics g) { 
-		g.setColor(Color.BLACK);
-		g.drawRect(x, y, 32, 32);
+		BufferedImage sprite = sprites[spriteRow][spriteCol];
+		g.drawImage(sprite, x, y, (int) (sprite.getWidth() * 1.5), (int) (sprite.getHeight() * 1.5), null);
 	}
 
 	
 	
-	public void importSprites(String fileName) { 
-		DataLoader.getImage(fileName);
-	}
+
 	
 	
 	
-	public BufferedImage[][] getSprite() {
-		return sprite;
+	public BufferedImage[][] getSprites() {
+		return sprites;
 	}
 
 	public Item getEquipped() {

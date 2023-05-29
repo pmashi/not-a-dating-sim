@@ -15,8 +15,8 @@ public class GamePanel extends JPanel {
 	
 	private Player player; 
 	
-	public static final int screenWidth = 16 * 90;
-	public static final int screenHeight = 16 * 60; 
+	public static final int screenWidth = 48 * 30;
+	public static final int screenHeight = 48 * 18; 
 	private Dimension size = new Dimension(screenWidth, screenHeight);
 	
 	public GamePanel(Game game) 

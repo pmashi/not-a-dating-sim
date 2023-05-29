@@ -1,14 +1,17 @@
 package scene;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
 import entity.Player;
 import game.Game;
 import game.GameState;
+import ui.Hotbar;
 
 public class Playing extends GameScene implements SceneMethods {
 	private Player player; 
+	private Hotbar hotbar; 
 	private int scene; 
 	private GameScene[] gameScenes; 
 	private boolean pause; 
@@ -16,15 +19,18 @@ public class Playing extends GameScene implements SceneMethods {
 	public Playing(Game g) {
 		super(g);
 		player = game.getPlayer();
+		hotbar = new Hotbar(player);
 	}
 	
 	public void render(Graphics g) { 
 		player.draw(g); 
+		hotbar.draw(g); 
 	}
 	
 	public void update() { 
 		if(!pause) { 
 			player.update(); 
+			hotbar.update(); 
 		}
 	}
 
