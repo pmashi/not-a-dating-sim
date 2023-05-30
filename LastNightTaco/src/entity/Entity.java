@@ -13,7 +13,9 @@ public class Entity {
 	protected BufferedImage[][] sprites; 
 	protected int spriteRow;
 	protected int spriteCol; 
+	
 	protected Item equipped; 
+	
 	protected Rectangle hitbox; 
 	protected int hp, block, mana;
 	protected int x, y, baseSpeed, speedBoost, speed; 

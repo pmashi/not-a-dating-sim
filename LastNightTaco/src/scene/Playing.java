@@ -30,7 +30,6 @@ public class Playing extends GameScene implements SceneMethods {
 	public void update() { 
 		if(!pause) { 
 			player.update(); 
-			hotbar.update(); 
 		}
 	}
 
@@ -51,6 +50,14 @@ public class Playing extends GameScene implements SceneMethods {
 		if(key == KeyEvent.VK_D) { 
 			player.setRightPress(true);
 		}
+		
+		if(key == KeyEvent.VK_F) { 
+			player.setBlock(true);
+		}
+		
+		if(key == KeyEvent.VK_SHIFT) { 
+			player.setRun(true);
+		}
 
 	}
 	
@@ -70,6 +77,14 @@ public class Playing extends GameScene implements SceneMethods {
 		
 		if(key == KeyEvent.VK_D) { 
 			player.setRightPress(false);
+		}
+		
+		if(key == KeyEvent.VK_F) { 
+			player.setBlock(false);
+		}
+		
+		if(key == KeyEvent.VK_SHIFT) { 
+			player.setRun(false);
 		}
 	}
 	

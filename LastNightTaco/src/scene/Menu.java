@@ -11,7 +11,7 @@ import ui.Buttons;
 
 public class Menu extends GameScene implements SceneMethods {
 
-	private Buttons play, settings, exit; 
+	private Buttons play, sceneSelect, settings, exit; 
 	
 	public Menu(Game g) {
 		super(g);
@@ -26,8 +26,9 @@ public class Menu extends GameScene implements SceneMethods {
 		int yOffset = 90;
 
 		play = new Buttons("Play", x, y, width, height);
-		settings = new Buttons("Settings", x, y + yOffset, width, height); 
-		exit = new Buttons("Exit", x, y + 2 * yOffset, width, height);
+		sceneSelect = new Buttons("Scene Select", x, y + yOffset, width, height);
+		settings = new Buttons("Settings", x, y + 2 * yOffset, width, height); 
+		exit = new Buttons("Exit", x, y + 3 * yOffset, width, height);
 	}
 
 	public void render(Graphics g) {
@@ -36,14 +37,11 @@ public class Menu extends GameScene implements SceneMethods {
 	
 	public void drawButtons(Graphics g) { 
 		play.draw(g);
+		sceneSelect.draw(g);
 		settings.draw(g);
 		exit.draw(g);
 	}
-	
 
-	public void update() { 
-		
-	}
 	
 	public void mouseClicked(int x, int y) {
 		// TODO Auto-generated method stub
@@ -51,12 +49,13 @@ public class Menu extends GameScene implements SceneMethods {
 		{
 			setState(PLAYING);
 		} 
-		else if (settings.getBounds().contains(x,y))
-		{
+		else if(sceneSelect.getBounds().contains(x, y)) { 
+			setState(SCENE_SELECT);
+		}
+		else if (settings.getBounds().contains(x,y)) {
 
 		}
-		else if (exit.getBounds().contains(x, y))
-		{
+		else if (exit.getBounds().contains(x, y)) {
 			System.exit(0);
 		}
 	}

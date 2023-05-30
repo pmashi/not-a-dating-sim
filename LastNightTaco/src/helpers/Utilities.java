@@ -72,4 +72,12 @@ public class Utilities {
 		
 		return (int) Math.hypot(xDiff, yDiff);
 	}
+	
+	public static int round(double d) { 
+		d *= 10; 
+		if((int) d % 10 >= 5) { 
+			return (int) d/10 + 1; 
+		} 
+		else return (int) d/10; 
+	}
 }

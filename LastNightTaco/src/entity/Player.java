@@ -6,25 +6,30 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import game.Game;
-import helpers.DataLoader;
+import helpers.*;
 import inputs.MyKeyListener;
 import objects.Item;
+import ui.Hotbar;
 
 public class Player extends Entity {
 	private Game game; 
 	private MyKeyListener key;
+	private Hotbar hotbar; 
 	protected Item[] inventory = new Item[5];
 	
 //	Entity variables
 
 //	private BufferedImage[][] sprite; 
 //	protected Item equipped; 
+	
 //	protected Rectangle hitBox; 
+	
 //	protected int hp, block, mana;
 //	protected int x, y, xSpeed, ySpeed; 
 //	protected String direction; 
 	
-	private boolean active, moving, upPress, downPress, leftPress, rightPress, isBlock; 
+	private boolean upPress, downPress, leftPress, rightPress;
+	private boolean active, moving, isRun, isBlock; 
 	
 
 	 
@@ -33,6 +38,7 @@ public class Player extends Entity {
 	public Player(Game g, MyKeyListener key) { 
 		game = g; 
 		this.key = key;
+		hotbar = new Hotbar(this);
 		spriteRow = 0; 
 		spriteCol = 3; 
 		importSprites("player.png");
@@ -41,11 +47,16 @@ public class Player extends Entity {
 	
 	private int tick = 0;
 	
+	public void draw(Graphics g) { 
+		super.draw(g);
+		
+	}
+	
 	public void update() {
+		hotbar.update(); 
 		updateSpeed(); 
 		updateSprite(); 
 		if(active) {
-			
 			if(upPress) { 
 				moving = true;
 				direction = "up";
@@ -69,7 +80,7 @@ public class Player extends Entity {
 			if(!(upPress || downPress || leftPress || rightPress)) { 
 				moving = false; 
 			}
-			if(tick % 6 == 0) { 
+			if(tick % sprites[spriteRow].length == 0) { 
 				spriteCol++; 
 				if(spriteCol > 5) { 
 					spriteCol %= 6; 
@@ -84,24 +95,34 @@ public class Player extends Entity {
 		}
 	}
 	
+	public void setDefault() { 
+		active = true; 
+		super.hp = 100; 
+		super.x = 100; 
+		super.y = 100; 
+		super.baseSpeed = 3;
+		super.speed = 3;
+		direction = "down"; 
+	}
+	
 	public boolean checkForMultipleKeys() { 
 		return (upPress && (leftPress || rightPress)) || (downPress && (leftPress || rightPress));
 	}
 	
 	public void updateSpeed() { 
-		if(checkForMultipleKeys()) { 
+		if(checkForMultipleKeys()) { //diagonal movement
 			speed = (int) Math.floor(super.baseSpeed * Math.sin(45));
 		} 
 		else { 
 			speed = baseSpeed; 
 		}
-	}
-	
-	public void animationTick() {
-	}
-	
-	public void draw(Graphics g) { 
-		super.draw(g);
+		
+		if(isBlock) { 
+			speed /= 2; 
+		}
+		if(isRun) { 
+			speed = Utilities.round(speed * 1.5);  
+		}
 	}
 	
 	public void importSprites(String fileName) { 
@@ -114,8 +135,6 @@ public class Player extends Entity {
 			}
 		}
 	}
-	
-
 	
 	public void updateSprite() { 
 		int row = 1; 
@@ -138,18 +157,6 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void setDefault() { 
-		active = true; 
-		super.hp = 100; 
-		super.x = 100; 
-		super.y = 100; 
-		super.baseSpeed = 3;
-		super.speed = 3;
-		direction = "down"; 
-	}
-
-
-
 	public boolean isUpPress() {
 		return upPress;
 	}
@@ -190,6 +197,13 @@ public class Player extends Entity {
 		this.isBlock = isBlock;
 	}
 
+	public boolean isRunning() { 
+		return isRun; 
+	}
+	
+	public void setRun(boolean isRun) { 
+		this.isRun = isRun;
+	}
 	public boolean getActive() { 
 		return active; 
 	}
