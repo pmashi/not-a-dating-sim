@@ -68,9 +68,8 @@ public class Player extends Entity {
 			}
 			if(!(upPress || downPress || leftPress || rightPress)) { 
 				moving = false; 
-				spriteCol = 0; 
 			}
-			if(tick % 5 == 0) { 
+			if(tick % 6 == 0) { 
 				spriteCol++; 
 				if(spriteCol > 5) { 
 					spriteCol %= 6; 
