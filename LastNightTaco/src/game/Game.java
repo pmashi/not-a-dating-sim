@@ -66,9 +66,15 @@ public class Game extends JFrame implements Runnable {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+//		for(int i = 0; i < 18; i++) { 
+//			for(int k = 0; k < 30; k++) { 
+//				System.out.print("0 "); 
+//			}
+//			System.out.println();
+//		}
 		Game game = new Game(); 
 		game.startThread(); 
-		
+
 	}
 	
 	public void startThread() { 

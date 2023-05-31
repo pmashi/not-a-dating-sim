@@ -64,7 +64,7 @@ public class Entity {
 		return direction;
 	}
 	
-	
-
-	
+	public void setEquipped(Item i) { 
+		equipped = i; 
+	}
 }

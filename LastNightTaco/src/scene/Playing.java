@@ -3,6 +3,7 @@ package scene;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import entity.Player;
 import game.Game;
@@ -13,17 +14,24 @@ public class Playing extends GameScene implements SceneMethods {
 	private Player player; 
 	private Hotbar hotbar; 
 	private int scene; 
-	private GameScene[] gameScenes; 
+	private ArrayList<Playing> gameScenes; 
+	private HomeScene homeScene; 
+	private OutsideScene outsideScene; 
+	private DeathScene deathScene; 
+	
 	
 	private boolean pause; 
 	
 	public Playing(Game g) {
 		super(g);
 		player = game.getPlayer();
+//		initScenes();
 		hotbar = new Hotbar(player);
 	}
 	
 	public void render(Graphics g) { 
+		g.drawString("Scene: " + scene, 0, 0);
+		gameScenes.get(1).render(g);
 		player.draw(g); 
 		if(player.getActive()) {
 			hotbar.draw(g); 
@@ -35,6 +43,16 @@ public class Playing extends GameScene implements SceneMethods {
 		if(!pause) { 
 			player.update(); 
 		}
+	}
+	
+	private void initScenes() { 
+		homeScene = new HomeScene(game);
+		outsideScene = new OutsideScene(game); 
+		deathScene = new DeathScene(game); 
+		
+		gameScenes.add(homeScene);
+		gameScenes.add(outsideScene);
+		gameScenes.add(deathScene);
 	}
 
 	public void keyPressed(KeyEvent e) { 
@@ -65,6 +83,14 @@ public class Playing extends GameScene implements SceneMethods {
 		
 		if(key == KeyEvent.VK_J) { 
 			player.setActive(!player.getActive());
+		}
+		
+		if(key == KeyEvent.VK_1) { 
+			player.setEquipped(0); 
+		}
+		
+		if(key == KeyEvent.VK_2) { 
+			player.setEquipped(1);
 		}
 	}
 	

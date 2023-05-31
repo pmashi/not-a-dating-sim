@@ -16,7 +16,7 @@ import objects.Item;
 public class Hotbar {
 	private Player player; 
 	private BufferedImage slotIcon; 
-	private Item[] hotbarItems = new Item[4];
+	private Item[] hotbarItems = new Item[2];
 	private ArrayList<Item> abilityList = new ArrayList<>(); 
 	private int equipped;
 	
@@ -43,14 +43,22 @@ public class Hotbar {
 			//g.drawRect(leftBound + i * (itemBarLength + barGap), GamePanel.screenHeight - 100, itemBarLength, itemBarLength); 
 		}
 		
-		g.drawImage(slotIcon, GamePanel.screenWidth / 2 - itemBarLength/2, GamePanel.screenHeight - 150, null);
+//		g.drawImage(slotIcon, GamePanel.screenWidth / 2 - itemBarLength/2, GamePanel.screenHeight - 150, null);
 	}
 	
 	public void update() { 
 		
 	}
+
+	public void updateEquipped() { 
+		
+	}
 	
 	private void importSlotIcon() { 
 		slotIcon = DataLoader.getImage("hotbaricon.png");
+	}
+	
+	public Item getItem(int i) { 
+		return hotbarItems[i]; 
 	}
 }

@@ -17,6 +17,7 @@ public class Player extends Entity {
 	private Hotbar hotbar; 
 	protected Item[] inventory = new Item[5];
 	
+	
 //	Entity variables
 
 //	private BufferedImage[][] sprite; 
@@ -210,6 +211,14 @@ public class Player extends Entity {
 	
 	public void setActive(boolean b) { 
 		active = b; 
+	}
+	
+	public void setEquipped(int i) {
+		if(equipped == hotbar.getItem(i)) { 
+			super.setEquipped(null);
+		} else { 
+			equipped = hotbar.getItem(i);
+		}
 	}
 	
 }
