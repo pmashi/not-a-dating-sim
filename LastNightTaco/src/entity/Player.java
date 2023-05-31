@@ -91,7 +91,7 @@ public class Player extends Entity {
 		
 		tick++;
 		if(tick % 120 == 0) {
-			System.out.println(speed + "\n" + checkForMultipleKeys());
+			//System.out.println(speed + "\n" + checkForMultipleKeys());
 		}
 	}
 	

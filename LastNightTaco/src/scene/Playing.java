@@ -14,6 +14,7 @@ public class Playing extends GameScene implements SceneMethods {
 	private Hotbar hotbar; 
 	private int scene; 
 	private GameScene[] gameScenes; 
+	
 	private boolean pause; 
 	
 	public Playing(Game g) {
@@ -24,7 +25,10 @@ public class Playing extends GameScene implements SceneMethods {
 	
 	public void render(Graphics g) { 
 		player.draw(g); 
-		hotbar.draw(g); 
+		if(player.getActive()) {
+			hotbar.draw(g); 
+		}
+		
 	}
 	
 	public void update() { 
@@ -58,7 +62,10 @@ public class Playing extends GameScene implements SceneMethods {
 		if(key == KeyEvent.VK_SHIFT) { 
 			player.setRun(true);
 		}
-
+		
+		if(key == KeyEvent.VK_J) { 
+			player.setActive(!player.getActive());
+		}
 	}
 	
 	public void keyReleased(KeyEvent e) { 
@@ -91,7 +98,7 @@ public class Playing extends GameScene implements SceneMethods {
 	@Override
 	public void mouseClicked(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(x + " " + y);
 	}
 
 	@Override
