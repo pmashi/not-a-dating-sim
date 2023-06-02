@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import game.Game;
+import game.GamePanel;
 import helpers.DataLoader;
 import helpers.Utilities;
 import objects.Vehicle;
@@ -15,19 +16,27 @@ public class OutsideScene extends GameScene implements SceneMethods {
 	private Vehicle car;
 	
 	
-	
 	public OutsideScene(Game g) { 
 		super(g);
 		initClasses();
 		importImages(); 
+		reset(); 
 	}
 	
-	public void render() { 
-		
+	public void render(Graphics g) { 
+		car.draw(g);
+		truck.draw(g);
 	}
+	
+	private int tick = 0; 
 	
 	public void update() { 
 		
+	}
+	
+	public void reset() { 
+		setTruckLocation(); 
+		setCarLocation(); 
 	}
 	
 	private void initClasses() { 
@@ -36,22 +45,16 @@ public class OutsideScene extends GameScene implements SceneMethods {
 	}
 	
 	private void importImages() { 
-		truck.setSprite(Utilities.getRotatedImage(DataLoader.getImage("truckkun.png"), 90)); 
-		car.setSprite(Utilities.getRotatedImage(DataLoader.getImage("car.png"), 90));
+		truck.setSprite(DataLoader.getImage("truckkun.png")); 
+		car.setSprite(DataLoader.getImage("car.png"));
 	}
 	
 	private void setTruckLocation() { 
-		truck.setLocation(100, 100);
+		truck.setLocation(500, 500);
 	}
 	
 	private void setCarLocation() { 
-		
-	}
-
-	@Override
-	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		car.setLocation((GamePanel.screenWidth - car.getSprite().getWidth()) / 2, 200);
 	}
 
 	@Override

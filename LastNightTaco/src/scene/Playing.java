@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import entity.Player;
 import game.Game;
 import game.GameState;
+import ui.Buttons;
 import ui.DialogueBox;
 import ui.Hotbar;
 
 public class Playing extends GameScene implements SceneMethods {
 	private Player player; 
+	private Buttons back; 
 	private DialogueBox dialogueBox; 
 	private Hotbar hotbar; 
 	private int scene; 
@@ -22,10 +24,12 @@ public class Playing extends GameScene implements SceneMethods {
 	private DeathScene deathScene; 
 	
 	private boolean cameraLock; 
-	private boolean pause; 
+	private boolean pause, backMenu; 
+
 	
 	public Playing(Game g) {
 		super(g);
+		back = new Buttons("Back", 10, 10, 50, 50);
 		player = game.getPlayer();
 		dialogueBox = new DialogueBox();
 		hotbar = new Hotbar(player);
@@ -34,8 +38,9 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 	
 	public void render(Graphics g) { 
+		back.draw(g);
 		g.drawString("Scene: " + scene, 0, 0);
-		gameScenes.get(1).render(g);
+		gameScenes.get(scene).render(g);
 		player.draw(g); 
 		if(player.getActive()) {
 			hotbar.draw(g); 
@@ -159,25 +164,40 @@ public class Playing extends GameScene implements SceneMethods {
 	@Override
 	public void mouseClicked(int x, int y) {
 		// TODO Auto-generated method stub
+		if(back.getBounds().contains(x, y)) {
+			pause = true; 
+			backMenu = true; 
+		} 
+		else {  
+			if(pause) { 
+				pause = !pause; 
+			}
+		}
 		System.out.println(x + " " + y);
 	}
 
 	@Override
 	public void mouseMoved(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		back.setMouseOver(false);
+		if(back.getBounds().contains(x, y)) {
+			back.setMouseOver(true);
+		}
 	}
 
 	@Override
 	public void mousePressed(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		if(back.getBounds().contains(x, y)) {
+			back.setMousePressed(true);
+		}
 	}
 
 	@Override
 	public void mouseReleased(int x, int y) {
 		// TODO Auto-generated method stub
-		
+		back.resetBooleans();
+ 
 	}
 
 	@Override
