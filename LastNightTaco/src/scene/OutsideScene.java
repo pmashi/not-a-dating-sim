@@ -1,5 +1,6 @@
 package scene;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import game.Game;
@@ -7,7 +8,7 @@ import helpers.DataLoader;
 import helpers.Utilities;
 import objects.Vehicle;
 
-public class OutsideScene extends Playing {
+public class OutsideScene extends GameScene implements SceneMethods {
 	public static int sceneNum = 1; 
 	
 	private Vehicle truck; 
@@ -17,6 +18,7 @@ public class OutsideScene extends Playing {
 	
 	public OutsideScene(Game g) { 
 		super(g);
+		initClasses();
 		importImages(); 
 	}
 	
@@ -43,6 +45,42 @@ public class OutsideScene extends Playing {
 	}
 	
 	private void setCarLocation() { 
+		
+	}
+
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseClicked(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(int x, int y) {
+		// TODO Auto-generated method stub
 		
 	}
 }

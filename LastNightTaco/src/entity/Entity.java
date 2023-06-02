@@ -17,13 +17,13 @@ public class Entity {
 	protected Item equipped; 
 	
 	protected Rectangle hitbox; 
+	
 	protected int hp, block, mana;
-	protected int x, y, baseSpeed, speedBoost, speed; 
+	protected int worldX, worldY, baseSpeed, speedBoost, speed; 
 	protected String direction; 
 	
 	public void draw(Graphics g) { 
-		BufferedImage sprite = sprites[spriteRow][spriteCol];
-		g.drawImage(sprite, x, y, (int) (sprite.getWidth() * 1.5), (int) (sprite.getHeight() * 1.5), null);
+		
 	}
 
 	
@@ -52,12 +52,12 @@ public class Entity {
 		return mana;
 	}
 
-	public int getX() {
-		return x;
+	public int getWorldX() {
+		return worldX;
 	}
 
 	public int getY() {
-		return y;
+		return worldY;
 	}
 
 	public String getDirection() {

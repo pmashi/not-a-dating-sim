@@ -1,5 +1,7 @@
 package scene;
 
+import java.awt.Graphics;
+
 import game.Game;
 import game.GameState;
 
@@ -13,4 +15,6 @@ public class GameScene {
 	public Game getGame() { 
 		return game; 
 	}
+	
+	public void render(Graphics g) {}
 }

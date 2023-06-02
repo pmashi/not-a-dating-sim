@@ -14,6 +14,8 @@ package game;
 import javax.swing.JFrame;
 
 import entity.Player;
+import helpers.CollisionChecker;
+import managers.TileManager;
 import scene.*;
 
 import java.awt.Color;
@@ -33,6 +35,9 @@ public class Game extends JFrame implements Runnable {
 	private Render render; 
 	
 	private Player player; 
+	
+	private TileManager tileManager; 
+	private CollisionChecker collisionChecker; 
 	
 	private Menu menu; 
 	private SceneSelect sceneSelect; 

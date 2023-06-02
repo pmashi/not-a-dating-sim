@@ -36,8 +36,8 @@ public class BossEntity extends Entity {
 	
 	public void setDefault(int hp, int x, int y, int speed, String direction) { 
 		this.hp = hp; 
-		this.x = x; 
-		this.y = y; 
+		this.worldX = x; 
+		this.worldY = y; 
 		baseSpeed = speed; 
 		this.speed = speed; 
 		this.direction = direction; 
@@ -45,12 +45,12 @@ public class BossEntity extends Entity {
 	
 	
 	public int findTargetXDistance() { 
-		return Math.abs(target.getX() - this.x);
+		return Math.abs(target.getWorldX() - this.worldX);
 		
 	}
 	
 	public int findTargetYDistance() { 
-		return Math.abs(target.getY() - this.y); 
+		return Math.abs(target.getY() - this.worldY); 
 	}
 	
 	public int findTargetAngle() { 

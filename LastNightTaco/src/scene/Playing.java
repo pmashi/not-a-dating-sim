@@ -8,25 +8,29 @@ import java.util.ArrayList;
 import entity.Player;
 import game.Game;
 import game.GameState;
+import ui.DialogueBox;
 import ui.Hotbar;
 
 public class Playing extends GameScene implements SceneMethods {
 	private Player player; 
+	private DialogueBox dialogueBox; 
 	private Hotbar hotbar; 
 	private int scene; 
-	private ArrayList<Playing> gameScenes; 
+	private ArrayList<GameScene> gameScenes = new ArrayList<>(); 
 	private HomeScene homeScene; 
 	private OutsideScene outsideScene; 
 	private DeathScene deathScene; 
 	
-	
+	private boolean cameraLock; 
 	private boolean pause; 
 	
 	public Playing(Game g) {
 		super(g);
 		player = game.getPlayer();
-//		initScenes();
+		dialogueBox = new DialogueBox();
 		hotbar = new Hotbar(player);
+		initScenes();
+
 	}
 	
 	public void render(Graphics g) { 
@@ -36,13 +40,16 @@ public class Playing extends GameScene implements SceneMethods {
 		if(player.getActive()) {
 			hotbar.draw(g); 
 		}
-		
+		if(dialogueBox.getVisible()) { 
+			dialogueBox.draw(g);
+		}
 	}
 	
 	public void update() { 
 		if(!pause) { 
 			player.update(); 
 		}
+		
 	}
 	
 	private void initScenes() { 
@@ -55,6 +62,26 @@ public class Playing extends GameScene implements SceneMethods {
 		gameScenes.add(deathScene);
 	}
 
+	public void setScene(int s) { 
+		scene = s; 
+	}
+	
+	public void setCameraLock(boolean b) { 
+		cameraLock = b; 
+	}
+	
+	public boolean getCameraLock() { 
+		return cameraLock; 
+	}
+	
+	public void setPause(boolean b) { 
+		pause = b; 
+	}
+	
+	public boolean getPause() { 
+		return pause; 
+	}
+	
 	public void keyPressed(KeyEvent e) { 
 		int key = e.getKeyCode();
 		if(key == KeyEvent.VK_W) { 
@@ -85,12 +112,20 @@ public class Playing extends GameScene implements SceneMethods {
 			player.setActive(!player.getActive());
 		}
 		
+		if(key == KeyEvent.VK_L) { 
+			setCameraLock(!cameraLock);
+		}
+		
 		if(key == KeyEvent.VK_1) { 
 			player.setEquipped(0); 
 		}
 		
 		if(key == KeyEvent.VK_2) { 
 			player.setEquipped(1);
+		}
+		
+		if(key == KeyEvent.VK_Z) { 
+			dialogueBox.setVisibility(!dialogueBox.getVisible());
 		}
 	}
 	

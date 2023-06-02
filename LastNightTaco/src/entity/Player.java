@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import game.Game;
+import game.GamePanel;
 import helpers.*;
 import inputs.MyKeyListener;
 import objects.Item;
@@ -20,7 +21,7 @@ public class Player extends Entity {
 	
 //	Entity variables
 
-//	private BufferedImage[][] sprite; 
+//	private BufferedImage[][] sprites; 
 //	protected Item equipped; 
 	
 //	protected Rectangle hitBox; 
@@ -31,8 +32,7 @@ public class Player extends Entity {
 	
 	private boolean upPress, downPress, leftPress, rightPress;
 	private boolean active, moving, isRun, isBlock; 
-	
-
+	private int screenX, screenY; 
 	 
 	
 	
@@ -46,41 +46,61 @@ public class Player extends Entity {
 		setDefault(); 
 	}
 	
-	private int tick = 0;
-	
-	public void draw(Graphics g) { 
-		super.draw(g);
+	public void setDefault() { 
+		active = true; 
+		super.hp = 100; 
+		super.worldX = 100; 
+		super.worldY = 100; 
+		super.baseSpeed = 3;
+		super.speed = 3;
+		direction = "down"; 
+		
+		
+		screenX = GamePanel.screenWidth / 2 - (int) (1.5 * sprites[0][0].getWidth() / 2);
+		screenY = GamePanel.screenHeight / 2 - (int) (1.5 * sprites[0][0].getHeight() / 2); 
 		
 	}
 	
+	private int tick = 0;
+	
+	public void draw(Graphics g) { 
+		BufferedImage sprite = sprites[spriteRow][spriteCol];
+		if(game.getPlay().getCameraLock()) {
+			g.drawImage(sprite, screenX, screenY, (int) (sprite.getWidth() * 1.5), (int) (sprite.getHeight() * 1.5), null);
+		} else { 
+			g.drawImage(sprite, worldX, worldY, (int) (sprite.getWidth() * 1.5), (int) (sprite.getHeight() * 1.5), null);
+		}
+	}
+	
 	public void update() {
-		hotbar.update(); 
-		updateSpeed(); 
-		updateSprite(); 
 		if(active) {
+			hotbar.update(); 
+			updateSpeed(); 
+			updateSprite(); 
 			if(upPress) { 
 				moving = true;
 				direction = "up";
-				super.y -= speed; 
+				super.worldY -= speed; 
 			}
 			if(downPress) { 
 				moving = true; 
 				direction = "down";
-				super.y += speed;
+				super.worldY += speed;
 			}
 			if(leftPress) { 
 				moving = true; 
 				direction = "left";
-				super.x -= speed;
+				super.worldX -= speed;
 			}
 			if(rightPress) { 
 				moving = true; 
 				direction = "right";
-				super.x += speed; 
+				super.worldX += speed; 
 			}
 			if(!(upPress || downPress || leftPress || rightPress)) { 
 				moving = false; 
 			}
+			
 			if(tick % sprites[spriteRow].length == 0) { 
 				spriteCol++; 
 				if(spriteCol > 5) { 
@@ -96,15 +116,7 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void setDefault() { 
-		active = true; 
-		super.hp = 100; 
-		super.x = 100; 
-		super.y = 100; 
-		super.baseSpeed = 3;
-		super.speed = 3;
-		direction = "down"; 
-	}
+
 	
 	public boolean checkForMultipleKeys() { 
 		return (upPress && (leftPress || rightPress)) || (downPress && (leftPress || rightPress));
