@@ -6,6 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 import game.Game;
 import game.GameState;
+import scene.Playing;
 
 public class MyMouseListener implements MouseListener, MouseMotionListener {
 	
@@ -67,6 +68,9 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 				game.getSceneSelect().mouseClicked(e.getX(), e.getY());
 				break; 
 			case PLAYING:
+				if(Playing.getScene() == 3) { 
+					game.getPlay().mouseClicked(e);
+				}
 				game.getPlay().mouseClicked(e.getX(), e.getY());
 				break;
 			default:
@@ -88,6 +92,9 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			game.getSceneSelect().mousePressed(e.getX(), e.getY());
 			break; 
 		case PLAYING:
+			if(Playing.getScene() == 3) { 
+				game.getPlay().mousePressed(e);
+			}
 			game.getPlay().mousePressed(e.getX(), e.getY());
 			break;
 		default:
@@ -108,6 +115,9 @@ public class MyMouseListener implements MouseListener, MouseMotionListener {
 			game.getSceneSelect().mouseReleased(e.getX(), e.getY());
 			break; 
 		case PLAYING:
+			if(Playing.getScene() == 3) { 
+				game.getPlay().mouseReleased(e);
+			}
 			game.getPlay().mouseReleased(e.getX(), e.getY());
 			break;
 		default:

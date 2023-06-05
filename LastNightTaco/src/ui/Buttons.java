@@ -117,6 +117,9 @@ public class Buttons {
 		return bounds;
 	}
 	
+	public int getY() { 
+		return y; 
+	}
 	public int getID()
 	{
 		return id;

@@ -3,27 +3,32 @@ package scene;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import entity.Player;
 import game.Game;
-import game.GameState;
+import game.GameState.*;
+import static game.GameState.*; 
 import ui.Buttons;
 import ui.DialogueBox;
 import ui.Hotbar;
 
-public class Playing extends GameScene implements SceneMethods {
+public class Playing extends GameScene implements SceneMethods, MouseListener {
 	private Player player; 
 	private Buttons back; 
 	private DialogueBox dialogueBox; 
 	private Hotbar hotbar; 
-	private int scene; 
+	
+	public static int scene = 1; 
 	private ArrayList<GameScene> gameScenes = new ArrayList<>(); 
 	private HomeScene homeScene; 
 	private OutsideScene outsideScene; 
 	private DeathScene deathScene; 
+	private BossFightScene bossFightScene; 
 	
-	private boolean cameraLock; 
+	private boolean cameraLock, showHotbar; 
 	private boolean pause, backMenu; 
 
 	
@@ -38,22 +43,51 @@ public class Playing extends GameScene implements SceneMethods {
 	}
 	
 	public void render(Graphics g) { 
+		if(scene == 0 || scene == 3) { 
+			//game.getGamePanel().setBackground(Color.BLACK);
+		} 
+		else if(scene == 2) { 
+			game.getGamePanel().setBackground(Color.WHITE);
+		}
+		else { 
+			game.getGamePanel().setBackground(Color.WHITE);
+		}
+		gameScenes.get(scene).render(g);
+		
 		back.draw(g);
 		g.drawString("Scene: " + scene, 0, 0);
-		gameScenes.get(scene).render(g);
+		
 		player.draw(g); 
-		if(player.getActive()) {
-			hotbar.draw(g); 
+		if(player.showHotbar()) {
+//			hotbar.draw(g); 
 		}
 		if(dialogueBox.getVisible()) { 
 			dialogueBox.draw(g);
 		}
 	}
-	
+	private int tick = 0; 
 	public void update() { 
 		if(!pause) { 
+//			tick++; 
+//			if(tick % 10 == 0) 
+//				System.out.println(tick); 
 			player.update(); 
+			gameScenes.get(scene).update(); 
 		}
+		
+		if(scene == 1) { 
+			if(player.getActive()) { 
+				player.setActive(false);
+			}
+			player.update(); 
+		} 
+		else if(scene == 2) { 
+			
+		}
+		else {
+			player.setActive(true); 
+		}
+		
 		
 	}
 	
@@ -61,16 +95,25 @@ public class Playing extends GameScene implements SceneMethods {
 		homeScene = new HomeScene(game);
 		outsideScene = new OutsideScene(game); 
 		deathScene = new DeathScene(game); 
+		bossFightScene = new BossFightScene(game);
 		
 		gameScenes.add(homeScene);
 		gameScenes.add(outsideScene);
 		gameScenes.add(deathScene);
+		gameScenes.add(bossFightScene);
+	}
+	
+	public void setDefault(int scene) { 
+		gameScenes.get(scene).setDefault(); 
 	}
 
-	public void setScene(int s) { 
+	public static void setScene(int s) {
 		scene = s; 
 	}
 	
+	public static int getScene() { 
+		return scene; 
+	}
 	public void setCameraLock(boolean b) { 
 		cameraLock = b; 
 	}
@@ -86,6 +129,37 @@ public class Playing extends GameScene implements SceneMethods {
 	public boolean getPause() { 
 		return pause; 
 	}
+	
+	
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+		if(scene == 3) {
+			if(e.getButton() == MouseEvent.BUTTON1) { 
+//				System.out.println("YES" + player.isAttacking());
+				player.attack(bossFightScene.getBoss()); 
+				player.updateHitArea();
+				player.setAttacking(true);
+				player.setAttackAniTick(30); 
+				player.setAttackCdTick(45);
+			}
+			
+			if(e.getButton() == MouseEvent.BUTTON3) { 
+				player.setBlock(true);
+				player.setParryTimerTick(tick);
+			}
+		}
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		if(e.getButton() == MouseEvent.BUTTON3) { 
+			player.setBlock(false);
+			player.setBlockCdTick(60);
+		}
+	}
+	
 	
 	public void keyPressed(KeyEvent e) { 
 		int key = e.getKeyCode();
@@ -105,7 +179,7 @@ public class Playing extends GameScene implements SceneMethods {
 			player.setRightPress(true);
 		}
 		
-		if(key == KeyEvent.VK_F) { 
+		if(key == KeyEvent.VK_Z) { 
 			player.setBlock(true);
 		}
 		
@@ -113,13 +187,16 @@ public class Playing extends GameScene implements SceneMethods {
 			player.setRun(true);
 		}
 		
-		if(key == KeyEvent.VK_J) { 
-			player.setActive(!player.getActive());
+		if(key == KeyEvent.VK_C) { 
+			player.setLockDirection(!player.isLockDirection());
 		}
-		
-		if(key == KeyEvent.VK_L) { 
-			setCameraLock(!cameraLock);
-		}
+//		if(key == KeyEvent.VK_J) { 
+//			player.setActive(!player.getActive());
+//		}
+//		
+//		if(key == KeyEvent.VK_L) { 
+//			setCameraLock(!cameraLock);
+//		}
 		
 		if(key == KeyEvent.VK_1) { 
 			player.setEquipped(0); 
@@ -129,9 +206,9 @@ public class Playing extends GameScene implements SceneMethods {
 			player.setEquipped(1);
 		}
 		
-		if(key == KeyEvent.VK_Z) { 
-			dialogueBox.setVisibility(!dialogueBox.getVisible());
-		}
+//		if(key == KeyEvent.VK_Z) { 
+//			dialogueBox.setVisibility(!dialogueBox.getVisible());
+//		}
 	}
 	
 	public void keyReleased(KeyEvent e) { 
@@ -159,21 +236,22 @@ public class Playing extends GameScene implements SceneMethods {
 		if(key == KeyEvent.VK_SHIFT) { 
 			player.setRun(false);
 		}
+		
+		
 	}
 	
 	@Override
 	public void mouseClicked(int x, int y) {
 		// TODO Auto-generated method stub
 		if(back.getBounds().contains(x, y)) {
-			pause = true; 
-			backMenu = true; 
+			setState(MENU);
 		} 
-		else {  
-			if(pause) { 
-				pause = !pause; 
-			}
-		}
-		System.out.println(x + " " + y);
+//		else {  
+//			if(pause) { 
+//				pause = !pause; 
+//			}
+//		}
+//		System.out.println(x + " " + y + "\nWorld (X, Y)");
 	}
 
 	@Override
@@ -202,6 +280,20 @@ public class Playing extends GameScene implements SceneMethods {
 
 	@Override
 	public void mouseDragged(int x, int y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}	

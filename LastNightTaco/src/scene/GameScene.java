@@ -17,4 +17,14 @@ public class GameScene {
 	}
 	
 	public void render(Graphics g) {}
+
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDefault() {
+		// TODO Auto-generated method stub
+		
+	}
 }

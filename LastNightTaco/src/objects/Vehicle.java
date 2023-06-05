@@ -16,6 +16,10 @@ public class Vehicle {
 		g.drawImage(sprite, x, y, null); 
 	}
 	
+	public void draw(Graphics g, int w, int h) { 
+		g.drawImage(sprite, x, y, w, h, null); 
+	}
+	
 	public void move(int x, int y) { 
 		x -= speed; 
 	}
@@ -31,5 +35,13 @@ public class Vehicle {
 	public void setLocation(int x, int y) { 
 		this.x = x; 
 		this.y = y; 
+	}
+	
+	public int getX() { 
+		return x;
+	}
+	
+	public int getY() { 
+		return y; 
 	}
 }

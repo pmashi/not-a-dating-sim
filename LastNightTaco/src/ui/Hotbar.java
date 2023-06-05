@@ -27,19 +27,25 @@ public class Hotbar {
 		this.player = player; 
 		importSlotIcon(); 
 		itemBarLength = slotIcon.getWidth();
-		System.out.println(itemBarLength);
+//		System.out.println(itemBarLength);
 	}
 	
 	public void draw(Graphics g) { 
 //		int leftBound = GamePanel.screenWidth / 2 - (hotbarItems.length * itemBarLength / 2) * (hotbarItems.length / 2);
 //		int leftBound = (GamePanel.screenWidth - hotbarItems.length * (itemBarLength - barGap) - barGap) / 2;
 		int leftBound = GamePanel.screenWidth / 2 - (hotbarItems.length / 2) * itemBarLength - ((hotbarItems.length - 1) / 2) * barGap;
+		
 		if(hotbarItems.length % 2 == 1) {
 			leftBound -= itemBarLength/2;
 		} else leftBound -= barGap / 2; 
 		
 		for(int i = 0; i < hotbarItems.length; i ++) { 
+			g.setColor(Color.white);
+			g.drawRect(leftBound + i * (itemBarLength + barGap), GamePanel.screenHeight - 100, slotIcon.getWidth() - 2, slotIcon.getHeight() - 2);
 			g.drawImage(slotIcon, leftBound + i * (itemBarLength + barGap), GamePanel.screenHeight - 100, null);
+			if(player.getEquipId() == i) { 
+				g.drawImage(slotIcon, leftBound + i * (itemBarLength + barGap), GamePanel.screenHeight - 100, itemBarLength + 10, itemBarLength + 10, null); 
+			}
 			//g.drawRect(leftBound + i * (itemBarLength + barGap), GamePanel.screenHeight - 100, itemBarLength, itemBarLength); 
 		}
 		

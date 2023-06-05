@@ -63,10 +63,18 @@ public class Game extends JFrame implements Runnable {
 		
 		player = new Player(this, gamePanel.getKeyListener());
 		
+		tileManager = new TileManager(this); 
+		collisionChecker = new CollisionChecker(this);
+		
 		menu = new Menu(this); 
 		play = new Playing(this);
 		death = new Death(this);
 		sceneSelect = new SceneSelect(this);
+		
+
+		
+		
+		
 	}
 	
 	public static void main(String[] args) {
@@ -148,6 +156,11 @@ public class Game extends JFrame implements Runnable {
 	public Player getPlayer() {
 		return player; 
 	}
+	
+	public TileManager getTileManager() { 
+		return tileManager; 
+	}
+	
 	public Menu getMenu() {
 		return menu;
 	}
@@ -188,11 +201,11 @@ public class Game extends JFrame implements Runnable {
 	
 	private static void req() {
 		// TODO Auto-generated method stub
-		System.out.println(collatzSteps(10)); 
+//		System.out.println(collatzSteps(10)); 
 		int[] i = {3, 5, 6, 7, 2, 2, 4};
-		System.out.println(sumArr(i, 0));
+//		System.out.println(sumArr(i, 0));
 		ArrayList<Integer> ins = new ArrayList<>(Arrays.asList(4, 5, 6, 1, 3, 5, 8, 4, 2));
-		System.out.println(traverseArrList(3, ins)); 
+//		System.out.println(traverseArrList(3, ins)); 
 	}
 
 }

@@ -18,18 +18,31 @@ public class Entity {
 	
 	protected Rectangle hitbox; 
 	
+	protected String name; 
 	protected int hp, block, mana;
 	protected int worldX, worldY, baseSpeed, speedBoost, speed; 
 	protected String direction; 
 	
+	public Entity() {}
+	
+	public Entity(String name) { 
+		this.name = name;
+	}
+	
 	public void draw(Graphics g) { 
 		
 	}
-
 	
+	public void attack(Entity e) {
+		if(equipped.getHitArea().intersects(e.getHitBox())) {
+			System.out.println("HIT!");
+			e.getHit(this); 
+		}
+	}
 	
-
-	
+	public void getHit(Entity offender) { 
+		hp -= offender.getEquipped().getDamage(); 
+	}
 	
 	
 	public BufferedImage[][] getSprites() {
@@ -40,6 +53,10 @@ public class Entity {
 		return equipped;
 	}
 
+	public Rectangle getHitBox() { 
+		return hitbox;	
+	}
+	
 	public int getHp() {
 		return hp;
 	}
@@ -52,18 +69,32 @@ public class Entity {
 		return mana;
 	}
 
+	public int getSpeed() { 
+		return speed; 
+	}
+	
 	public int getWorldX() {
 		return worldX;
 	}
 
-	public int getY() {
+	public void setWorldX(int x) { 
+		worldX = x; 
+	}
+	public int getWorldY() {
 		return worldY;
+	}
+	
+	public void setWorldY(int y) { 
+		worldY = y; 
 	}
 
 	public String getDirection() {
 		return direction;
 	}
 	
+	public void setDirection(String s) { 
+		direction = s; 
+	}
 	public void setEquipped(Item i) { 
 		equipped = i; 
 	}
