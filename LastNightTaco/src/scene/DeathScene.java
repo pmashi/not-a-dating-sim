@@ -24,11 +24,15 @@ public class DeathScene extends GameScene implements SceneMethods {
 		{"You", "Omg Jesus, but why am I in heaven?"},
 		{"???", "I am not Jesus, I am Hesus, the second cousin of Jesus!"},
 		{"You", "He sus? Anyways, why am I in heaven?"},
-		{"Hesus", "You got hit by a truck because you didn't look at both sides of \nthe road before crossing."},
+		{"Hesus", "You got hit by a truck because you didn't look at both sides of"},
+		{"Hesus", "the road before crossing."},
 		{"You", "So what do I do now?"},
-		{"Hesus", "If you win against yourself from an alternate universe, I'll give \nyou another chance in life. However, those that are sent to Jesus are usually better than the ones sent to me, which is you"},
+		{"Hesus", "If you win against yourself from an alternate universe, I'll give"},
+		{"Hesus", "you another chance in life. However, those that are sent to Jesus"}, 
+		{"Hesus", "are usually better than the ones sent to me, which is you"},
 		{"You", "Does that mean I'll die?"},
-		{"Hesus", "You're already dead idiot. You're just going to die again, unless \nyou win against your \nalternate self."},
+		{"Hesus", "You're already dead idiot. You're just going to die again, unless"},
+		{"Hesus", "you win against your alternate self."},
 		{"You", "But how am I going to win?"},
 		{"Hesus", "I don't know. You know yourself the best. Good Luck"}
 		};
@@ -73,7 +77,7 @@ public class DeathScene extends GameScene implements SceneMethods {
 			dialogueBox.update(); 
 			tick++;
 		}
-		if(dialogueBox.getConvoNum() > dialogue.length) {
+		if(dialogueBox.getConvoNum() >= dialogue.length - 1) {
 			Playing.setScene(3);
 		}
 	}

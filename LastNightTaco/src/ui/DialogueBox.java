@@ -43,8 +43,8 @@ public class DialogueBox {
 	}
 	
 	public void updateText() {
-		text = convos[convo][0] + ": " + convos[convo][1];
-		shownText= convos[convo][0] + ": ";
+		text = convos[convo][0] + "[" + convo + "]: " + convos[convo][1];
+		shownText= convos[convo][0] + "[" + convo + "]: ";
 	}
 	
 	public void updateShownText() { 
