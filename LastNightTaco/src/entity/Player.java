@@ -39,7 +39,7 @@ public class Player extends Entity {
 	private boolean upPress, downPress, leftPress, rightPress;
 	private boolean active, lockDirection, moving, isAttacking, isRun, isBlock; 
 	
-	private boolean showLocator, showHotbar, showValueBars; 
+	private boolean showLocator, showHotbar, showValueBars, showHpBar = false; 
 	private int screenX, screenY; 
 	private double scale; 
 	
@@ -104,9 +104,11 @@ public class Player extends Entity {
 //		}
 		if(Playing.getScene() == 3) {
 			drawItem(g);
+			drawHitbox(g); 
+
 		}
-		drawHitbox(g); 
-		
+		if(showHpBar) 
+			hpBar.draw(g);
 		g.drawRect(equipped.getHitArea().x, equipped.getHitArea().y, equipped.getHitArea().width, equipped.getHitArea().height); 
 	}
 	
@@ -116,31 +118,52 @@ public class Player extends Entity {
 			updateSpeed(); 
 			updateSprite(); 
 			updateHitbox(); 
+			updateHpBar(); 
 			updateItemSprite(); 
 			
 			if(upPress) { 
 				moving = true;
 				direction = lockDirection ? direction : "up";
-				if(!(worldY - speed < 0))
-					super.worldY -= speed; 
+				if(Playing.getScene() == 2) {
+					if(!(worldY - speed < 0))
+						super.worldY -= speed; 
+				} else if(Playing.getScene() == 3) {
+					if(!(worldY - speed < 0))
+						super.worldY -= speed; 
+				}
 			}
 			if(downPress) { 
 				moving = true; 
 				direction = lockDirection ? direction : "down";
-				if(!(worldY + speed > GamePanel.screenHeight - 2 * sprites[spriteRow][spriteCol].getHeight()))
-					super.worldY += speed;
+				if(Playing.getScene() == 2) {
+					if(!(worldY + speed > GamePanel.screenHeight - 2 * sprites[spriteRow][spriteCol].getHeight()))
+						super.worldY += speed;
+				} else if(Playing.getScene() == 3) {
+					if(!(worldY + speed > GamePanel.screenHeight - 2 * sprites[spriteRow][spriteCol].getHeight()))
+						super.worldY += speed;
+				}
 			}
 			if(leftPress) { 
 				moving = true; 
 				direction = lockDirection ? direction : "left";
-				if(!(worldX - speed < 0))
-					super.worldX -= speed;
+				if(Playing.getScene() == 2) {
+					if(!(worldX - speed < 0))
+						super.worldX -= speed;
+				} else if(Playing.getScene() == 3) {
+					if(!(worldX - speed < 0))
+						super.worldX -= speed;
+				}
 			}
 			if(rightPress) { 
 				moving = true; 
 				direction = lockDirection ? direction : "right";
-				if(!(worldX + speed > GamePanel.screenWidth - 2 * sprites[spriteRow][spriteCol].getWidth()))
-					super.worldX += speed; 
+				if(Playing.getScene() == 2) {
+					if(!(worldX + speed > GamePanel.screenWidth - 2 * sprites[spriteRow][spriteCol].getWidth()))
+						super.worldX += speed; 
+				} else if(Playing.getScene() == 3) {
+					if(!(worldX + speed > GamePanel.screenWidth - 2 * sprites[spriteRow][spriteCol].getWidth()))
+						super.worldX += speed; 
+				}
 			}
 			if(!(upPress || downPress || leftPress || rightPress)) { 
 				moving = false; 
@@ -170,6 +193,13 @@ public class Player extends Entity {
 		attackCdTick--; 
 		blockCdTick--; 
 		parryTimerTick++; 
+	}
+	
+	public void updateHpBar() { 
+		BufferedImage sprite = sprites[spriteRow][spriteCol];
+		hpBar.setFrame(new Rectangle(worldX, worldY - sprite.getHeight() - 20, sprite.getWidth(), 10));
+		hpBar.setValue(hp);
+		hpBar.updateText();
 	}
 	
 	public void updateHitArea() { 
@@ -299,6 +329,7 @@ public class Player extends Entity {
 			}
 		}
 	}
+
 	
 	public void updateSprite() { 
 		int row = 1; 
@@ -402,6 +433,10 @@ public class Player extends Entity {
 		return showHotbar;
 	}
 	
+	public void setShowHpBar(boolean b) {
+		showHpBar = b; 
+	}
+
 	public void setEquipped(int i) {
 		if(equipped == hotbar.getItem(i)) { 
 			super.setEquipped(null);

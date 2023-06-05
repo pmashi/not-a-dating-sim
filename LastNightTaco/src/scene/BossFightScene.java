@@ -19,6 +19,7 @@ public class BossFightScene extends GameScene implements SceneMethods {
 		you = new BossEntity(game, 300); 
 		game.getPlayer().setActive(true);
 		game.getPlayer().setShowHotbar(true);
+		game.getPlayer().setShowHpBar(true);
 		game.getPlayer().setShowLocator(true);
 
 	}
@@ -30,6 +31,12 @@ public class BossFightScene extends GameScene implements SceneMethods {
 	
 	public void update() { 
 		you.update(); 
+		if(you.getHp() < 0) { 
+			game.getPlayer().setActive(false); 
+		}
+		else if(game.getPlayer().getHp() < 0) { 
+			game.getPlayer().setActive(false); 
+		}
 	}
 	
 	

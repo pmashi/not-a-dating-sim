@@ -56,15 +56,6 @@ public class BossEntity extends Entity {
 		
 	}
 	
-	private int tick = 0;
-	private int attackAniTick, attackCdTick, strafeTick, stunTick; 
-
-	public void updateTick() { 
-		tick++; 
-		attackAniTick--; 
-		attackCdTick--; 
-	}
-	
 	public void update() { 
 		updateHitbox(); 
 
@@ -74,18 +65,19 @@ public class BossEntity extends Entity {
 				updateToTarget();
 				updateSpeed(); 
 				updateSprite(); 
+				updateItemSprite(); 
 			}
 			move(); 
-			if(findDistanceFromTarget() < 50) { 
+			
+			if(findDistanceFromTarget() < 20) { 
 				if(attackCdTick == 0) {
-					
-				
 					attack(target); 
 					updateHitArea();
 					setAttacking(true);
 					setAttackAniTick(30); 
-					setAttackCd(60);
-					setStrafe(true); 
+					attackCdTick = 60; 
+					strafe = true; 
+					strafeTick = 120;
 				}
 			}
 		} else { 
@@ -98,8 +90,23 @@ public class BossEntity extends Entity {
 				spriteCol %= 6; 
 			}
 		}
-		
+		updateTick();
+	}
+	
+	private int tick = 0;
+	private int attackAniTick, attackCdTick, strafeTick, stunTick; 
+	private void updateTick() { 
 		tick++; 
+		if(attackAniTick > 0) 
+			attackAniTick--;
+		if(attackCdTick > 0)
+			attackCdTick--; 
+		if(strafeTick > 0) { 
+			strafeTick--; 
+		}
+		if(strafeTick == 0) {
+			strafe = false; 
+		}
 	}
 	
 	private void setStrafe(boolean b) {
@@ -127,7 +134,6 @@ public class BossEntity extends Entity {
 		baseSpeed = 4; 
 		this.speed = 4; 
 		direction = "down"; 
-
 	}
 	
 	public void importSprites(String fileName) { 
@@ -140,7 +146,6 @@ public class BossEntity extends Entity {
 			}
 		}
 	}
-	
 	
 	public void updateSprite() { 
 		int row = 1; 
@@ -231,7 +236,6 @@ public class BossEntity extends Entity {
 		}
 	}
 
-	
 	public void turnHostile() { 
 		if(findDistanceFromTarget(game.getPlayer()) < 300) { 
 			isHostile = true; 	
@@ -274,39 +278,19 @@ public class BossEntity extends Entity {
 	}
 
 	public void move() { 
-		switch(direction) {
-		case "up": 
-			break; 
-		case "down": 
-			break; 
-		case "right": 
-			break;
-		case "left": 
-			break; 
+		if(strafe) {
+			worldX -= xSpeed; 
+			worldY -= ySpeed; 
+		} else {
+			worldX += xSpeed; 
+			worldY += ySpeed; 
 		}
-		
-		
-		worldX += xSpeed; 
-		worldY += ySpeed; 
+
 	}
 	
 	public void teleport() { 
 		worldX = (int) (Math.random() * (GamePanel.screenWidth - 640) + 320); 
 		worldY = (int) (Math.random() * (GamePanel.screenHeight - 160) + 80);
-	}
-	
-	public void assassinate() { 
-		int behindX = getBehindTargetX(); 
-		int behindY = getBehindTargetY(); 
-		
-	}
-	
-	public int getBehindTargetX() { 
-		return 0;
-	}
-	
-	public int getBehindTargetY() { 
-		return 0; 
 	}
 	
 	public int findDistanceFromTarget() { 
@@ -317,17 +301,5 @@ public class BossEntity extends Entity {
 		return (int) Math.sqrt(Math.pow(worldX - e.getWorldX(), 2) + Math.pow(worldY - e.getWorldY(), 2)); 
 	}
 	
-	public int findTargetXDistance() { 
-		return Math.abs(target.getWorldX() - this.worldX);
-		
-	}
-	
-	public int findTargetYDistance() { 
-		return Math.abs(target.getWorldY() - this.worldY); 
-	}
-	
-	public int findTargetAngle() { 
-		return (int) Math.atan(findTargetYDistance() / findTargetXDistance()); 
-	}
 }
 

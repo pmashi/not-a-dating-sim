@@ -18,6 +18,7 @@ public class ValueBar {
 		this.maxValue = max; 
 		body = front; 
 		backBody = back; 
+		text = "n/a";
 	}
 	
 	public ValueBar(String stat, Rectangle frame, int maxValue, Color backBody, Color body) {
@@ -27,6 +28,8 @@ public class ValueBar {
 		this.maxValue = maxValue; 
 		this.backBody = backBody; 
 		this.body = body; 
+		
+		text = "n/a";
 	}
 	
 	
@@ -61,6 +64,10 @@ public class ValueBar {
 		int w = g.getFontMetrics().stringWidth(text);
 		int h = g.getFontMetrics().getHeight();
 		g.drawString(text, frame.x - w / 2 + frame.width / 2, frame.y + h / 2 - 3 + frame.height / 2);
+	}
+	
+	public void setFrame(Rectangle r) {
+		frame = r; 
 	}
 	
 	public String getStat() {

@@ -2,7 +2,10 @@ package scene;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.sound.sampled.*;
 
 import entity.Player;
 import game.Game;
@@ -16,6 +19,8 @@ import objects.Vehicle;
 public class OutsideScene extends GameScene implements SceneMethods {
 	public static final int sceneNum = 1; 
 	
+	private AudioInputStream audioInputStream;
+	private Clip peacefulMusic; 
 	private Playing play; 
 	private TileManager tileManager; 
 	
@@ -49,6 +54,7 @@ public class OutsideScene extends GameScene implements SceneMethods {
 		tileManager = game.getTileManager(); 
 		tileManager.createTiles2(); 
 		initClasses();
+//		importSounds(); 
 		importImages(); 
 		setDefault(); 
 	}
@@ -63,6 +69,13 @@ public class OutsideScene extends GameScene implements SceneMethods {
 	
 	public void update() { 
 		sceneTick++;
+//		try {
+//			peacefulMusic.open(audioInputStream);
+//		} catch (LineUnavailableException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		peacefulMusic.start();
 		if(sceneTick % 60 == 0)
 			System.out.println(sceneTick);
 		truck.setLocation(truck.getX() - 20, truck.getY());
@@ -70,9 +83,13 @@ public class OutsideScene extends GameScene implements SceneMethods {
 			game.getPlayer().setUpPress(true); 
 		if(sceneTick > 240 && sceneTick < 340) 
 			game.getPlayer().setPlayerLocation(game.getPlayer().getWorldX(), game.getPlayer().getWorldY() - 5);
+		if(sceneTick == 340) {
+			
+		}
 		if(sceneTick > 340 && sceneTick < 500) 
 			game.getPlayer().setPlayerLocation(game.getPlayer().getWorldX() - 40, game.getPlayer().getWorldY() - 2);
 		if(sceneTick == 540) {
+			game.getPlayer().setUpPress(false); 
 			Playing.setScene(2);
 		}
 	}
@@ -90,6 +107,18 @@ public class OutsideScene extends GameScene implements SceneMethods {
 	private void initClasses() { 
 		truck = new Vehicle(); 
 		car = new Vehicle(); 
+	}
+	
+	private void importSounds() { 
+		try {
+			File file = new File("Calm-and-Peaceful.wav");
+			audioInputStream = AudioSystem.getAudioInputStream(file);
+			peacefulMusic = AudioSystem.getClip();
+
+		} catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
 	}
 	
 	private void importImages() { 

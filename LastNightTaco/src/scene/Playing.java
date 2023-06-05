@@ -132,18 +132,20 @@ public class Playing extends GameScene implements SceneMethods, MouseListener {
 	
 	
 	public void mouseClicked(MouseEvent e) {
-
+		
 	}
 
 	public void mousePressed(MouseEvent e) {
 		if(scene == 3) {
 			if(e.getButton() == MouseEvent.BUTTON1) { 
+				if(!player.isBlock()) {
 //				System.out.println("YES" + player.isAttacking());
-				player.attack(bossFightScene.getBoss()); 
-				player.updateHitArea();
-				player.setAttacking(true);
-				player.setAttackAniTick(30); 
-				player.setAttackCdTick(45);
+					player.attack(bossFightScene.getBoss()); 
+					player.updateHitArea();
+					player.setAttacking(true);
+					player.setAttackAniTick(30); 
+					player.setAttackCdTick(45);
+				}
 			}
 			
 			if(e.getButton() == MouseEvent.BUTTON3) { 
@@ -252,6 +254,9 @@ public class Playing extends GameScene implements SceneMethods, MouseListener {
 //			}
 //		}
 //		System.out.println(x + " " + y + "\nWorld (X, Y)");
+		if(scene == 2) {
+			deathScene.mouseClicked(x, y);
+		}
 	}
 
 	@Override
