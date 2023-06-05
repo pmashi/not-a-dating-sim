@@ -278,13 +278,13 @@ public class BossEntity extends Entity {
 	}
 
 	public void move() { 
-		if(strafe) {
-			worldX -= xSpeed; 
-			worldY -= ySpeed; 
-		} else {
-			worldX += xSpeed; 
-			worldY += ySpeed; 
-		}
+//		if(strafe) {
+//			worldX -= xSpeed; 
+//			worldY -= ySpeed; 
+//		} 
+		worldX += xSpeed; 
+		worldY += ySpeed; 
+		
 
 	}
 	
